@@ -34,5 +34,5 @@ String class has effective expanding strategy - multiplicative scheme.
 * Stream output.
 
 
-# This project was created by Ksenija Okuneva 
-# December 2022
+### This project was created by Ksenija Okuneva 
+### December 2022
