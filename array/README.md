@@ -47,5 +47,6 @@ What may be realized:
 ```c++
 #define ARRAY_TRAITS_IMPLEMENTED
 ```
-# This project was created by Ksenija Okuneva 
-# December 2022
+
+### This project was created by Ksenija Okuneva 
+### December 2022

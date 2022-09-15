@@ -19,5 +19,6 @@ Public interface includes:
 * Stream input and output;
 
 *Also some tests included*
-# This project was created by Ksenija Okuneva 
-# December 2022
+
+### This project was created by Ksenija Okuneva 
+### December 2022

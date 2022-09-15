@@ -21,5 +21,5 @@ Interface includes:
 * Constructor from `const char *` and `size_t`;
 * `begin()`, `cbegin()`, `rbegin()`, `crbegin()`, `end()`, `cend()`, `rend()`, `crend()`, `begin()`, `end()`, `rbegin()`, `rend()`;
 
-# This project was created by Ksenija Okuneva 
-# December 2022
+### This project was created by Ksenija Okuneva 
+### December 2022

@@ -14,5 +14,5 @@ The commands to the program can be following:
 * clear;
 * exit;
 
-# This project was created by Ksenija Okuneva 
-# December 2022
+### This project was created by Ksenija Okuneva 
+### December 2022
