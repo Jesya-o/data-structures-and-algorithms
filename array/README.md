@@ -1,84 +1,51 @@
-### Array
+This project was created to explore C++ libraries.
 
-*C-style массивы эффективней в использовании чем массивы в динамической памяти, из-за известного на этапе компиляции
-фиксированного размера и более эффективного расположения в памяти (стековая/автоматическая память). Однако едва ли
-C-массивы можно назвать удобными в использовании - они спонтанно приводятся к указателям, их не так просто передать в
-функцию, не работает привычная операция присваивания и т.д. В этой задаче предлагается написать ООП обертку над C-style
-массивом, который обладает всеми его преимуществами, нивелируя при этом описанные недостатки.*
+#### Intro
+ 
+Array.h is an analogy to `std::array<T, N>` from the C++11 standart library. This template is a coverage to the C-style array. It has the advantages of C-style arrays like:
+ - fixed size
+ - location at stack memory
+All the functionality and effectivity also remains.
+ 
+And has not many of the downsides:
+ - not being eventually converted to pointers
+ - have no problems passing as an argument to the function
+ - works the assignment operation
 
-#### std::array (C++11)
+[More information.](https://en.cppreference.com/w/cpp/container/array)
 
-Начиная с C++11 в стандартной библиотеке (заголовочный файл `<array>`) появился шаблонный класс `std::array<T, N>`,
-параметризованный типом хранимых элементов `T` и размером `N`. Этот класс содержит единственное поле типа "массив `T` из
-`N` элементов" и предоставляет методы для удобного доступа к информации (размер, элементы и т.д), а также изменения
-элементов массива. Класс `std::array` в полной мере обеспечивает функционал обычных массивов, не теряя при этом
-эффективности. Поэтому в современном C++ принято использовать именно `std::array` вместо C-style массивов.
-[Подробнее.](https://en.cppreference.com/w/cpp/container/array)
+#### Details of the realization
 
-#### Детали реализации 
-
-Вам необходимо реализовать шаблонный класс `Array` - упрощенный аналог `std::array`. Ваш класс должен быть
-параметризован типом хранимых элементов, а также размером массива. Как было сказано ранее, этот класс должна иметь ровно
-одно поле - C-style массив требуемого типа и размера. Важным моментом является то, что это поле должно быть публичным! В
-этом случае, как известно, становится доступна агрегатная инициализация вашего массива:
+`Array` is a simplified version of `std::array`. It has two parameters, the type of data in the array and the size of the array.
+Aggregate initialization can be following:
 
 ```c++
-int arr[4]{1, 2, 3};  // массив {1, 2, 3, 0}
-Array<int, 4> my_arr{1, 2, 3};  // если поле публично, то {1, 2, 3, 0}, иначе - CE
+int arr[4]{1, 2, 3};  // array {1, 2, 3, 0}
+Array<int, 4> other_arr{1, 2, 3};  // same array
 ```
+Realized methods:
+* Access to an item by index;
+* `At(size_t idx)` method (secured access by index, throws exception `ArrayOutOfRange`);
+* `Front()` and `Back()` methods (access to the first and the last elements);
+* `Data()` method (returns pointer to the array);
+* `Size()` and `Empty()` methods;
+* `Fill(const T& value)` method;
+* `Swap(Array<T, N>& other)` method.
 
-Для корректного прохождения тестов ваш класс должен реализовывать следующие методы (подумайте, какие методы должны быть
-константными, какие - неконстантными, а какие должны иметь обе версии):
-* Операция `[]` для доступа к элементу массива по индексу;
-* Метод `At(size_t idx)`, который обеспечивает безопасный (с проверкой границ)
-доступ к элементу по индексу. В случае выхода за границы необходимо бросать исключение типа `ArrayOutOfRange`, которое
-уже написано за вас (см. замечания);
-* Методы `Front()` и `Back()` для доступа к первому и последнему элементу соответственно;
-* Метод `Data()`, возвращающий указатель на начало массива;
-* Методы `Size()` и `Empty()`;
-* Метод `Fill(const T& value)`, который заполняет массив значениями `value`;
-* Метод `Swap(Array<T, N>& other)`, обменивающий содержимое массивов одинакового размера.
-
-**Замечания.**
-
-1. Проверка устроена таким образом, что требует от вас жесткого следования принятым (выше) сигнатурам и именованиям
-сущностей (то есть никакие `MyArray`, `__array_`, `back`, `superSolver3000` не пройдут). Если вы реализовали требуемый
-функционал не полностью или интерфейс отличается от заявленного, в ответ вы получите ошибку компиляции.
-
-2. Решение должно состоять из одного файла `array.h` с определением класса.
-
-3. В задаче есть открытые и закрытые тесты. Перед отправкой решения проверяйте его на открытых тестах (чуда не будет,
-если есть ошибка в публичных тестах, то она проявится и на более сложных приватных).
-
-4. "Бросить исключение типа `E`" значит - написать строку `throw E{};`. В этот момент выполнение функции прекращается и,
-если исключение не будет обработано, программа завершится аварийно. Тестирующий код корректно обработает эту ошибку, вам
-этого делать не нужно.
+**Also there is a testing program.**
 
 ---
 
-### Дополнительная часть
+### In following updates: implemetation of array traits
 
-С помощью механизма перегрузки шаблонов реализуйте функции для извлечения свойств C-style массивов:
+What may be realized:
 
-* `GetSize(array)` должна возвращать число элементов в массиве `array` и 0, если `array` не является C-style массивом
-* `GetRank(array)` должна возвращать число координат многомерного массива `array`
-* `GetNumElements(array)` должна возвращать *общее* число элементов в многомерном массиве `array`
-
-Пример
-
-```c++
-int x;
-int a[3];
-int b[3][2][1];
-
-std::cout << GetSize(x) << ' ' << GetSize(a) << ' ' << GetSize(b) << '\n';  // 0 3 3
-std::cout << GetRank(x) << ' ' << GetRank(a) << ' ' << GetRank(b) << '\n';  // 0 1 3
-std::cout << GetNumElements(x) << ' ' << GetNumElements(a) << ' ' << GetNumElements(b) << '\n';  // 1 3 6
-```
-
-*Важно:* если вы выполнили это задание, добавьте в файл `array.h` следующую строку, чтобы в тесты была включена проверка
-этого задания.
+* `GetSize(array)`, returning the number of alements in the array, 0 if `array` is not a C-styled array;
+* `GetRank(array)`, returning the number of coordinates of multiarray `array`;
+* `GetNumElements(array)`, returning the total number of elements in the multiarray `array`.
 
 ```c++
 #define ARRAY_TRAITS_IMPLEMENTED
 ```
+# This project was created by Ksenija Okuneva 
+# December 2022
