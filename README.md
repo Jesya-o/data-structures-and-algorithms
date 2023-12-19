@@ -1,2 +1,18 @@
+Data structures and algorithms written on vanilla C++.
+Data structures:
+* String View
+* String
+* Splay Tree
+* Rational
+* Matrix
+* Array
+* Deque
+* Min Queue
 
-Some classes written during C++ course
+Algorithms: 
+* Graham
+* Binary Search
+* Kth Statistics
+* Merge
+* Priority Queue
+* Sort 
